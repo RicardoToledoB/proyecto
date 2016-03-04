@@ -1,0 +1,38 @@
+<ui:composition template="WEB-INF/templates/login.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                >
+   
+    <ui:define name="content">
+        <div class="login-box-body">
+            <p class="login-box-msg">Iniciar Sesion de Usuario</p>
+            <h:form id="login">
+                <div class="form-group has-feedback">
+                    <h:inputText id="username" value="#{loginBean.username}" styleClass="form-control" pt:placeholder="Nombre Usuario"/>
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    
+                    <h:inputSecret id="password" value="#{loginBean.password}" styleClass="form-control" pt:placeholder="Contraseña"/>
+                  <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">    
+
+                  </div><!-- /.col -->
+                  <div class="col-xs-6">
+                      <h:commandButton styleClass="btn btn-primary btn-block btn-flat"
+                                       value="Acceder Sistema"
+                                       action="#{loginBean.login()}">
+                      </h:commandButton>
+                  </div><!-- /.col -->
+                </div>
+            </h:form>
+            <a href="#">He olvidado mi clave!</a><br/>
+        </div><!-- /.login-box-body -->
+    </ui:define>
+</ui:composition>

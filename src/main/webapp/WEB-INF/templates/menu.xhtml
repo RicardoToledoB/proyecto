@@ -1,0 +1,59 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        xmlns:jsf="http://xmlns.jcp.org/jsf"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="data:image/png;base64,#{userPhoto}" class="img-circle" alt="User Image" />
+                </div>
+                <div class="pull-left info">
+                    <p>#{loginBean.username} #{loginBean.username}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search..." />
+                      <span class="input-group-btn">
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                      </span>
+                </div>
+            </form>
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="header">NAVEGACIÓN</li>
+                <li class="active">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>Principal</span>
+                    </a>
+                </li>
+                <c:forEach items="${dashboardBean.menus}" var="menu">
+                    <li class="${fn:length(dashboardBean.itemsByMenu(menu)) gt 0 ? 'treeview' : ''}">
+                        <a href="${request.contextPath}${menu.url}">
+                            <i class="${menu.icon}"></i>
+                            <span>${menu.nombre}</span>
+                            <i jsf:rendered="${fn:length(dashboardBean.itemsByMenu(menu)) gt 0}"
+                               class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <c:if test="${fn:length(dashboardBean.itemsByMenu(menu)) gt 0}">
+                            <ul class="treeview-menu">
+                                <c:forEach items="${dashboardBean.itemsByMenu(menu)}" var="item">
+                                    <li>
+                                        <a href="${request.contextPath}${item.url}">
+                                            <i class="${item.icon}"></i>
+                                            ${item.nombre}
+                                        </a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </c:if>
+                    </li>
+                </c:forEach>
+            </ul>
+        </section>
+    </aside>
+</ui:composition>

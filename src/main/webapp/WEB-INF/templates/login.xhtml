@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="AdminLTE.min.css" />
+    <h:outputStylesheet library="css" name="all-skins.min.css" />
+    <h:outputStylesheet library="css" name="general.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <title>Login</title>
+</h:head>
+<h:body  class="login-page">
+
+    <div class="login-box">
+      <div class="login-logo">
+        <a href="../../index2.html"><b>Admin</b>Claro</a>
+      </div><!-- /.login-logo -->
+       <ui:insert name="content">Contenido</ui:insert>
+    </div><!-- /.login-box -->
+
+  
+    <h:outputScript library="js" name="jquery.min.js"/>
+    <h:outputScript library="js" name="bootstrap.min.js"/>
+    <h:outputScript library="js" name="fastclick.min.js"/>
+    <h:outputScript library="js" name="slimscroll.min.js"/>
+    <h:outputScript library="js" name="app.min.js"/>
+    <h:outputScript library="js" name="general.js"/>
+    <script>
+      $(function () {
+        $('input').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          increaseArea: '20%' // optional
+        });
+      });
+    </script>
+</h:body>
+</html>

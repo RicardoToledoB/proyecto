@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="AdminLTE.min.css" />
+    <h:outputStylesheet library="css" name="all-skins.min.css" />
+    <h:outputStylesheet library="css" name="general.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <title><ui:insert name="titulo"/></title>
+</h:head>
+
+<h:body styleClass="hold-transition skin-red sidebar-mini">
+    <div class="wrapper">
+        <ui:include src="/WEB-INF/templates/header.xhtml"/>
+        <ui:include src="/WEB-INF/templates/menu.xhtml" />
+        <div class="content-wrapper">
+            <!-- breadncumb -->
+            <section class="content-header">
+                <h1>
+                    <ui:insert name="pageName">Título de página</ui:insert>
+                    <small><ui:insert name="pageDesc">Descripción</ui:insert></small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#{request.contextPath}/home.xhtml"><i class="fa fa-dashboard"></i>Principal</a></li>
+                    <li class="active"><ui:insert name="breadcumbPage">Principal</ui:insert></li>
+                </ol>
+            </section>
+            <section class="content">
+                <ui:insert name="content">Contenido</ui:insert>
+            </section>
+        </div>
+        <ui:include src="/WEB-INF/templates/footer.xhtml" />
+    </div>
+    <h:outputScript library="js" name="jquery.min.js"/>
+    <h:outputScript library="js" name="bootstrap.min.js"/>
+    <h:outputScript library="js" name="fastclick.min.js"/>
+    <h:outputScript library="js" name="slimscroll.min.js"/>
+    <h:outputScript library="js" name="app.min.js"/>
+    <h:outputScript library="js" name="general.js"/>
+</h:body>
+</html>

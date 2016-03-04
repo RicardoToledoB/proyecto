@@ -1,0 +1,238 @@
+<ui:composition template="/WEB-INF/templates/dashboard.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                >
+    <ui:define name="title">Principal</ui:define>
+    <ui:define name="pageName">Principal</ui:define>
+    <ui:define name="pageDesc">Bienvenido al sistema</ui:define>
+    <ui:define name="content">
+        <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#nuevo">Nuevo Usuario</button>
+        <br/><br/>
+        <!-- TABLA USUARIOS -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Listado Usuario</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <h:form id="datatableForm">
+                            <h:dataTable id="tblUsuario" value="#{usuarioBean.lista}" var="usuario"
+                                         styleClass="table table-bordered table-striped">
+                                <h:column>
+                                    <f:facet name="header">Nombre</f:facet>
+                                        #{usuario.nombre}
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">1er Apellido</f:facet>
+                                        #{usuario.apepat}
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">2do Apellido</f:facet>
+                                        #{usuario.apemat}
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">Acciones</f:facet>
+                                    <button data-toggle="modal" data-target="#view"
+                                            jsf:action="#{usuarioBean.setUserView(usuario)}">
+                                        <h:graphicImage library="img" name="eye.png"/>
+                                        <f:ajax execute="@this" render=":viewForm"/>
+                                    </button>
+                                    <button data-toggle="modal" data-target="#edit"
+                                            jsf:action="#{usuarioBean.setUserEdit(usuario)}">
+                                        <h:graphicImage library="img" name="pencil.png"/>
+                                        <f:ajax execute="@this" render=":editForm"/>
+                                    </button>
+                                    <button data-toggle="modal" data-target="#delete"
+                                            jsf:action="#{usuarioBean.setUserDelete(usuario)}">
+                                        <h:graphicImage library="img" name="trash.png"/>
+                                        <f:ajax execute="@this" render=":deleteForm"/>
+                                    </button>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN TABLA USUARIOS -->
+
+        <!-- MODAL NUEVO -->
+        <div class="example-modal">
+            <div class="modal" id="nuevo">
+                <div class="modal-dialog" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                            <h4 class="modal-title">Nuevo Usuario</h4>
+                        </div>
+                        <h:form id="newForm">
+                            <div class="modal-body">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <h:outputLabel for="nombre" value="Nombre"/>
+                                        <h:inputText id="nombre" value="#{usuarioBean.user.nombre}" styleClass="form-control" pt:placeholder="Introduzca su Nombre"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="apepat" value="Apellido Paterno"/>
+                                        <h:inputText id="apepat" value="#{usuarioBean.user.apepat}" styleClass="form-control" pt:placeholder="Introduzca su 1erApellido"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="apemat" value="Apellido Materno"/>
+                                        <h:inputText id="apemat" value="#{usuarioBean.user.apemat}" styleClass="form-control" pt:placeholder="Introduzca su 2doApellido"/>
+                                    </div>
+                                </div><!-- /.box-body -->
+                                <h:messages globalOnly="true" /> 
+                            </div>
+                            <div class="modal-footer">
+                                <h:commandButton styleClass="btn btn-primary"
+                                                 actionListener="#{usuarioBean.save()}"
+                                                 pt:data-dismiss="modal"
+                                                 value="Guardar">
+                                    <f:ajax execute="@form" render=":datatableForm:tblUsuario newForm"/>
+                                   
+                                </h:commandButton>
+
+
+                            </div>
+                        </h:form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div><!-- /.example-modal -->
+        <!-- FIN MODAL NUEVO -->
+
+        <!-- MODAL VIEW -->
+        <div class="example-modal">
+            <div class="modal" id="view">
+                <div class="modal-dialog" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                            <h4 class="modal-title">Editar Usuario</h4>
+                        </div>
+                        <h:form id="viewForm">
+                            <div class="modal-body">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <h:outputLabel for="nombre" value="Nombre"/>
+                                        <h:inputText id="nombre" value="#{usuarioBean.userView.nombre}" styleClass="form-control"
+                                                      pt:readonly="true"
+                                                     />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="apepat" value="Apellido Paterno"/>
+                                        <h:inputText id="apepat" value="#{usuarioBean.userView.apepat}" styleClass="form-control"
+                                                      pt:readonly="true"
+                                                     />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="apemat" value="Apellido Materno"/>
+                                        <h:inputText id="apemat" value="#{usuarioBean.userView.apemat}" styleClass="form-control"
+                                                      pt:readonly="true"
+                                                     />
+                                    </div>
+                                </div><!-- /.box-body -->
+                                
+                            </div>
+                            <div class="modal-footer">
+                               <!-- <h:commandButton value="Cerrar" actionListener="#" class="btn btn-primary" />-->
+                                <h:commandButton styleClass="btn btn-primary"
+                                                 actionListener="#{usuarioBean.limpiar()}"
+                                                 pt:data-dismiss="modal"
+                                                 value="Cerrar">
+                                    <f:ajax execute="@form" render=":datatableForm:tblUsuario"/>
+                                   
+                                </h:commandButton>
+                                
+                                
+                            </div>
+                        </h:form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div><!-- /.example-modal -->
+        <!-- FIN MODAL VIEW -->
+        
+        
+        <!-- MODAL EDIT -->
+        <div class="example-modal">
+            <div class="modal" id="edit">
+                <div class="modal-dialog" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                            <h4 class="modal-title">Editar Usuario</h4>
+                        </div>
+                        <h:form id="editForm">
+                            <div class="modal-body">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <h:outputLabel for="nombre" value="Nombre"/>
+                                        <h:inputText id="nombre" value="#{usuarioBean.userEdit.nombre}" styleClass="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="apepat" value="Apellido Paterno"/>
+                                        <h:inputText id="apepat" value="#{usuarioBean.userEdit.apepat}" styleClass="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="apemat" value="Apellido Materno"/>
+                                        <h:inputText id="apemat" value="#{usuarioBean.userEdit.apemat}" styleClass="form-control"/>
+                                    </div>
+                                </div><!-- /.box-body -->
+                                <h:messages globalOnly="true" /> 
+                            </div>
+                            <div class="modal-footer">
+                                <h:commandButton value="Guardar" actionListener="#{usuarioBean.edit()}" class="btn btn-primary" />
+                            </div>
+                        </h:form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div><!-- /.example-modal -->
+        <!-- FIN MODAL EDIT -->
+
+        <!-- MODAL ELIMINAR -->
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form id="deleteForm">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">x</span>
+                            </button>
+                            <h4 class="modal-title">
+                                Eliminar Usuario
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <p style="font-family: 'segoe ui'; font-size: 14pt; color:#555; text-align: center;">
+                                ¿Está seguro de eliminar este ítem? 
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <h:commandButton styleClass="btn btn-danger"
+                                             pt:data-dismiss="modal"
+                                             actionListener="#{usuarioBean.delete}"
+                                             value="Sí">
+                                <f:ajax execute="@this" render=":datatableForm:tblUsuario"/>
+                            </h:commandButton>
+                            <h:commandButton styleClass="btn btn-default"
+                                             pt:data-dismiss="modal"
+                                             actionListener="#"
+                                             value="No">
+                                <f:ajax execute="@this" render=":datatableForm:tblUsuario"/>
+                            </h:commandButton>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- FIN MODAL ELIMINAR -->
+
+    </ui:define>
+</ui:composition>
